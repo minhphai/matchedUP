@@ -68,7 +68,9 @@
     self.title = self.withUser[kCCUserProfileKey][kCCUserProfileFirstNameKey];
     
     self.initialLoadComplete = NO;
-    self.chatsTimer = [NSTimer scheduledTimerWithTimeInterval:10 target:self selector:@selector(checkForNewChats) userInfo:nil repeats:YES];
+    
+    // Set the time the system fetch new message i.e, send request to Parse
+    self.chatsTimer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(checkForNewChats) userInfo:nil repeats:YES];
     
     
 }
