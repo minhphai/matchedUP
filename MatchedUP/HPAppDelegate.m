@@ -8,12 +8,31 @@
 
 #import "HPAppDelegate.h"
 
+
 @implementation HPAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     // Override point for customization after application launch.
+    [Parse setApplicationId:@"C3SPA2BVnazNr21BgfjWudWPIFZ3TKVOu2iHnLnH"
+                  clientKey:@"p6tE0smaH78N1zoiEJFjvWsCfiL1m4Q4AyUzUa6b"];
+    [PFFacebookUtils initializeFacebook];
+    //[PFAnalytics trackAppOpenedWithLaunchOptions:launchOptions];
+    
+    NSString *defaulPrefsFile = [[NSBundle mainBundle] pathForResource:@"defaultPrefsFile" ofType:@"plist"];
+    
+    NSDictionary *defaultPreferences = [NSDictionary dictionaryWithContentsOfFile:defaulPrefsFile];
+    [[NSUserDefaults standardUserDefaults]  registerDefaults:defaultPreferences];
+    [[UINavigationBar appearance] setBarTintColor:[UIColor whiteColor]];
+    
+    [[UINavigationBar appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor colorWithRed:12/255.0 green:158/255.0 blue:255/255.0 alpha:1.0], NSFontAttributeName : [UIFont fontWithName:@"HelveticaNeue-Light" size:20.0]}];
+                                        
+                                        
     return YES;
+}
+-(BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
+{
+    return [FBAppCall handleOpenURL:url sourceApplication:sourceApplication withSession:[PFFacebookUtils session]];
 }
 							
 - (void)applicationWillResignActive:(UIApplication *)application
